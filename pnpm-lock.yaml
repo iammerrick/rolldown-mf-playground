@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@rolldown/browser':
-        specifier: link:../rolldown/packages/browser
-        version: link:../rolldown/packages/browser
+        specifier: ^1.0.0-beta.7-commit.a0a7d95
+        version: 1.0.0-beta.7-commit.a0a7d95(typescript@5.8.3)
       '@vueuse/core':
         specifier: ^13.1.0
         version: 13.1.0(vue@3.5.13(typescript@5.8.3))
@@ -64,6 +64,15 @@ packages:
   '@babel/types@7.27.0':
     resolution: {integrity: sha512-H45s8fVLYjbhFH62dIJ3WtmJ6RSPt/3DRO0ZcT2SUiYiQyz3BLVb9ADEnLl91m74aQPS3AzzeajZHYOalWe3bg==}
     engines: {node: '>=6.9.0'}
+
+  '@emnapi/core@1.4.1':
+    resolution: {integrity: sha512-4JFstCTaToCFrPqrGzgkF8N2NHjtsaY4uRh6brZQ5L9e4wbMieX8oDT8N7qfVFTQecHFEtkj4ve49VIZ3mKVqw==}
+
+  '@emnapi/runtime@1.4.1':
+    resolution: {integrity: sha512-LMshMVP0ZhACNjQNYXiU1iZJ6QCcv0lUdPDPugqGvCGXt5xtRVBPdtA0qU12pEXZzpWAhWlZYptfdAFq10DOVQ==}
+
+  '@emnapi/wasi-threads@1.0.1':
+    resolution: {integrity: sha512-iIBu7mwkq4UQGeMEM8bLwNK962nXdhodeScX4slfQnRhEMMzvYivHhutCIk8uojvmASXXPC2WNEjwxFWk72Oqw==}
 
   '@esbuild/aix-ppc64@0.25.2':
     resolution: {integrity: sha512-wCIboOL2yXZym2cgm6mlA742s9QeJ8DjGVaL39dLN4rRwrOgOyYSnOaFPhKZGLb2ngj4EyfAFjsNJwPXZvseag==}
@@ -236,6 +245,21 @@ packages:
     peerDependencies:
       tslib: '2'
 
+  '@napi-rs/wasm-runtime@0.2.8':
+    resolution: {integrity: sha512-OBlgKdX7gin7OIq4fadsjpg+cp2ZphvAIKucHsNfTdJiqdOmOEwQd/bHi0VwNrcw5xpBJyUw6cK/QilCqy1BSg==}
+
+  '@oxc-project/types@0.63.0':
+    resolution: {integrity: sha512-2tIGBdm0mOMMo3AUVdXyZUORDbWTnt4XVOKeNdcPtxtb39SgyF/ek2QV7DJ9BAV5TWYYis6BuY5SqrAp+PHRgQ==}
+
+  '@rolldown/browser@1.0.0-beta.7-commit.a0a7d95':
+    resolution: {integrity: sha512-KVqdpeP9AsNhDvitsf+mDd5b4cKqYXRdPrqphDn4E3Pm7u7Vgk7bK3DFSA7crWOtYXNUJj6sbG4sjrpNqjsQjA==}
+    hasBin: true
+    peerDependencies:
+      '@oxc-project/runtime': 0.63.0
+    peerDependenciesMeta:
+      '@oxc-project/runtime':
+        optional: true
+
   '@rollup/rollup-android-arm-eabi@4.40.0':
     resolution: {integrity: sha512-+Fbls/diZ0RDerhE8kyC6hjADCXA1K4yVNlH0EYfd2XjyH0UGgzaQ8MlT0pCXAThfxv3QUAczHaL+qSv1E4/Cg==}
     cpu: [arm]
@@ -336,11 +360,19 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@tybys/wasm-util@0.9.0':
+    resolution: {integrity: sha512-6+7nlbMVX/PVDCwaIQ8nTOPveOcFLSt8GcXdx8hD0bt39uWxYT88uXzqTd4fTvqta7oeUJqudepapKNt2DYJFw==}
+
   '@types/estree@1.0.7':
     resolution: {integrity: sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==}
 
   '@types/web-bluetooth@0.0.21':
     resolution: {integrity: sha512-oIQLCGWtcFZy2JW77j9k8nHzAOpqMHLQejDA48XXMWH6tjCQHz5RCFz1bzsmROyL6PUm+LLnUiI4BCn221inxA==}
+
+  '@valibot/to-json-schema@1.0.0':
+    resolution: {integrity: sha512-/9crJgPptVsGCL6X+JPDQyaJwkalSZ/52WuF8DiRUxJgcmpNdzYRfZ+gqMEP8W3CTVfuMWPqqvIgfwJ97f9Etw==}
+    peerDependencies:
+      valibot: ^1.0.0
 
   '@vitejs/plugin-vue@5.2.3':
     resolution: {integrity: sha512-IYSLEQj4LgZZuoVpdSUCw3dIynTWQgPlaRP6iAvMle4My0HdYwr5g5wQAfwOeHQBmYwEkqF70nRpSilr6PoUDg==}
@@ -496,6 +528,9 @@ packages:
   path-browserify@1.0.1:
     resolution: {integrity: sha512-b7uo2UCUOYZcnF/3ID0lulOJi/bafxa1xPe7ZPsammBSpjSWQkjNxlt635YGS2MiR9GjvuXCtz2emr3jbsz98g==}
 
+  pathe@2.0.3:
+    resolution: {integrity: sha512-WUjGcAqP1gQacoQe+OBJsFA7Ld4DyXuUIjZ5cc75cLHvJ7dtNsTugphxIADwspS+AraAUePCKrSVtPLFj/F88w==}
+
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
@@ -536,6 +571,14 @@ packages:
     resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
     engines: {node: '>=14.17'}
     hasBin: true
+
+  valibot@1.0.0:
+    resolution: {integrity: sha512-1Hc0ihzWxBar6NGeZv7fPLY0QuxFMyxwYR2sF1Blu7Wq7EnremwY2W02tit2ij2VJT8HcSkHAQqmFfl77f73Yw==}
+    peerDependencies:
+      typescript: '>=5'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   vite@6.2.6:
     resolution: {integrity: sha512-9xpjNl3kR4rVDZgPNdTL0/c6ao4km69a/2ihNQbcANz8RuCOK3hQBmLSJf3bRKVQjVMda+YvizNE8AwvogcPbw==}
@@ -608,6 +651,19 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
+
+  '@emnapi/core@1.4.1':
+    dependencies:
+      '@emnapi/wasi-threads': 1.0.1
+      tslib: 2.8.1
+
+  '@emnapi/runtime@1.4.1':
+    dependencies:
+      tslib: 2.8.1
+
+  '@emnapi/wasi-threads@1.0.1':
+    dependencies:
+      tslib: 2.8.1
 
   '@esbuild/aix-ppc64@0.25.2':
     optional: true
@@ -702,6 +758,25 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
+  '@napi-rs/wasm-runtime@0.2.8':
+    dependencies:
+      '@emnapi/core': 1.4.1
+      '@emnapi/runtime': 1.4.1
+      '@tybys/wasm-util': 0.9.0
+
+  '@oxc-project/types@0.63.0': {}
+
+  '@rolldown/browser@1.0.0-beta.7-commit.a0a7d95(typescript@5.8.3)':
+    dependencies:
+      '@napi-rs/wasm-runtime': 0.2.8
+      '@oxc-project/types': 0.63.0
+      '@valibot/to-json-schema': 1.0.0(valibot@1.0.0(typescript@5.8.3))
+      ansis: 3.17.0
+      pathe: 2.0.3
+      valibot: 1.0.0(typescript@5.8.3)
+    transitivePeerDependencies:
+      - typescript
+
   '@rollup/rollup-android-arm-eabi@4.40.0':
     optional: true
 
@@ -762,9 +837,17 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.40.0':
     optional: true
 
+  '@tybys/wasm-util@0.9.0':
+    dependencies:
+      tslib: 2.8.1
+
   '@types/estree@1.0.7': {}
 
   '@types/web-bluetooth@0.0.21': {}
+
+  '@valibot/to-json-schema@1.0.0(valibot@1.0.0(typescript@5.8.3))':
+    dependencies:
+      valibot: 1.0.0(typescript@5.8.3)
 
   '@vitejs/plugin-vue@5.2.3(vite@6.2.6)(vue@3.5.13(typescript@5.8.3))':
     dependencies:
@@ -961,6 +1044,8 @@ snapshots:
 
   path-browserify@1.0.1: {}
 
+  pathe@2.0.3: {}
+
   picocolors@1.1.1: {}
 
   postcss@8.5.3:
@@ -1010,6 +1095,10 @@ snapshots:
   tslib@2.8.1: {}
 
   typescript@5.8.3: {}
+
+  valibot@1.0.0(typescript@5.8.3):
+    optionalDependencies:
+      typescript: 5.8.3
 
   vite@6.2.6:
     dependencies:

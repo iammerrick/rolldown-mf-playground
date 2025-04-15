@@ -18,7 +18,7 @@
     "vue-tsc": "^2.2.8"
   },
   "dependencies": {
-    "@rolldown/browser": "link:../rolldown/packages/browser",
+    "@rolldown/browser": "^1.0.0-beta.7-commit.a0a7d95",
     "@vueuse/core": "^13.1.0",
     "ansis": "^3.17.0",
     "memfs": "^4.17.0",

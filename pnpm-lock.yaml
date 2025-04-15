@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@rolldown/browser':
-        specifier: link:/Users/kevin/Developer/open-source/rolldown/packages/browser
-        version: link:../../Developer/open-source/rolldown/packages/browser
+        specifier: link:../rolldown/packages/browser
+        version: link:../rolldown/packages/browser
       '@vueuse/core':
         specifier: ^13.1.0
         version: 13.1.0(vue@3.5.13(typescript@5.8.3))

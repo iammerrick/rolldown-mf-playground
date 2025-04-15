@@ -2,6 +2,10 @@ import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
+  build: {
+    minify: false,
+    target: 'esnext',
+  },
   plugins: [Vue()],
   optimizeDeps: {
     exclude: ['@rolldown/browser'],
@@ -13,14 +17,6 @@ export default defineConfig({
     },
     fs: {
       strict: false,
-    },
-  },
-  resolve: {
-    alias: {
-      '@napi-rs/wasm-runtime/fs':
-        '/Users/kevin/Developer/open-source/napi-rs/wasm-runtime/dist/fs.js',
-      '@napi-rs/wasm-runtime':
-        '/Users/kevin/Developer/open-source/napi-rs/wasm-runtime/dist/runtime.js',
     },
   },
 })

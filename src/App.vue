@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { build } from '@rolldown/browser'
+import { rolldown } from '@rolldown/browser'
 import ansis from 'ansis'
 import { ref, watch } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
@@ -18,7 +18,7 @@ async function compile() {
 
   const t = performance.now()
   try {
-    const { output: chunks } = await build({
+    const build = await rolldown({
       input: ['/main.ts'],
       cwd: '/',
       plugins: [
@@ -33,11 +33,11 @@ async function compile() {
           },
         },
       ],
-      output: {
-        dir: 'dist',
-      },
-      write: false,
     })
+    const { output: chunks } = await build.generate({
+      dir: 'dist',
+    })
+    // await build.close()
 
     output.value = chunks
       .map(

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { rolldown, __fs, __volume } from '@rolldown/browser'
 import ansis from 'ansis'
-import { ref } from 'vue'
-import { useLocalStorage, watchDebounced } from '@vueuse/core'
+import { ref, watch } from 'vue'
+import { useLocalStorage } from '@vueuse/core'
 
 const code = useLocalStorage<string>('code', '')
 const output = ref()
@@ -58,11 +58,7 @@ async function compile() {
   }
 }
 
-watchDebounced(code, compile, {
-  debounce: 0,
-})
-
-setTimeout(compile, 200)
+watch(code, compile, { immediate: true })
 </script>
 
 <template>

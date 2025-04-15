@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@napi-rs/wasm-runtime':
+    hash: 2208d1087396aa64af48f49601d2536383c774da4e04d62ee191591748532cb3
+    path: patches/@napi-rs__wasm-runtime.patch
+
 importers:
 
   .:
@@ -758,7 +763,7 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@napi-rs/wasm-runtime@0.2.8':
+  '@napi-rs/wasm-runtime@0.2.8(patch_hash=2208d1087396aa64af48f49601d2536383c774da4e04d62ee191591748532cb3)':
     dependencies:
       '@emnapi/core': 1.4.1
       '@emnapi/runtime': 1.4.1
@@ -768,7 +773,7 @@ snapshots:
 
   '@rolldown/browser@1.0.0-beta.7-commit.a0a7d95(typescript@5.8.3)':
     dependencies:
-      '@napi-rs/wasm-runtime': 0.2.8
+      '@napi-rs/wasm-runtime': 0.2.8(patch_hash=2208d1087396aa64af48f49601d2536383c774da4e04d62ee191591748532cb3)
       '@oxc-project/types': 0.63.0
       '@valibot/to-json-schema': 1.0.0(valibot@1.0.0(typescript@5.8.3))
       ansis: 3.17.0

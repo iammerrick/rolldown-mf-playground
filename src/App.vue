@@ -69,6 +69,6 @@ watch(code, compile, { immediate: true })
     placeholder="Enter your code here..."
     style="width: 500px; height: 200px"
   ></textarea>
-  <div>{{ timeCost }}ms</div>
+  <div>{{ compiling ? ' compiling...' : `${timeCost} ms` }} </div>
   <pre>{{ output }}</pre>
 </template>

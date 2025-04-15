@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { rolldown, __fs, __volume } from '@rolldown/browser'
+import { build } from '@rolldown/browser'
 import ansis from 'ansis'
 import { ref, watch } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
@@ -13,29 +13,30 @@ async function compile() {
   if (compiling.value) return
   compiling.value = true
 
-  __fs.rmSync('/app', { recursive: true, force: true })
   const mainCode = code.value
-  __volume.fromJSON({ 'main.ts': mainCode }, '/app')
+  const vfs = new Map<string, string>([['/main.ts', mainCode]])
 
   const t = performance.now()
   try {
-    const build = await rolldown({
-      input: ['/app/main.ts'],
-      cwd: '/app',
+    const { output: chunks } = await build({
+      input: ['/main.ts'],
+      cwd: '/',
       plugins: [
         {
           name: 'vfs',
           resolveId: (id) => id,
           load(id) {
-            if (__fs.existsSync(id)) {
-              return __fs.readFileSync(id, 'utf8')
+            if (vfs.has(id)) {
+              return vfs.get(id)!
             }
+            throw new Error(`File not found: ${JSON.stringify(id)}`)
           },
         },
       ],
-    })
-    const { output: chunks } = await build.generate({
-      dir: 'dist',
+      output: {
+        dir: 'dist',
+      },
+      write: false,
     })
 
     output.value = chunks

@@ -9,16 +9,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@rolldown/browser": "https://pkg.pr.new/@rolldown/browser@4125",
-    "@vueuse/core": "^13.1.0",
-    "ansis": "^3.17.0",
-    "vue": "^3.5.13"
+    "@rolldown/browser": "nightly",
+    "@vueuse/core": "^13.2.0",
+    "ansis": "^4.0.0",
+    "vue": "^3.5.14"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.2.3",
+    "@vitejs/plugin-vue": "^5.2.4",
     "prettier": "^3.5.3",
     "typescript": "~5.8.3",
-    "vite": "npm:rolldown-vite@6.3.0-beta.8",
-    "vue-tsc": "^2.2.8"
+    "vite": "npm:rolldown-vite@latest",
+    "vue-tsc": "^2.2.10"
   }
 }

@@ -1,21 +1,21 @@
-import { defineConfig } from 'vite'
-import Vue from '@vitejs/plugin-vue'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   build: {
-    target: 'esnext',
+    target: "esnext",
   },
-  plugins: [Vue()],
+  plugins: [react()],
   optimizeDeps: {
-    exclude: ['@rolldown/browser'],
+    exclude: ["@rolldown/browser"],
   },
   server: {
     headers: {
-      'Cross-Origin-Embedder-Policy': 'require-corp',
-      'Cross-Origin-Opener-Policy': 'same-origin',
+      "Cross-Origin-Embedder-Policy": "require-corp",
+      "Cross-Origin-Opener-Policy": "same-origin",
     },
     fs: {
       strict: false,
     },
   },
-})
+});

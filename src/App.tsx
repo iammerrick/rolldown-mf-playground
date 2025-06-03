@@ -6,6 +6,12 @@ import { useVirtualFileSystem } from "./hooks/useVirtualFileSystem";
 import { FileManager } from "./components/FileManager";
 import { CodeEditor } from "./components/CodeEditor";
 import { OutputPanel } from "./components/OutputPanel";
+import { ConfigPanel } from "./components/ConfigPanel";
+import {
+  RolldownConfig,
+  DEFAULT_CONFIG,
+  CONFIG_STORAGE_KEY,
+} from "./types/config";
 
 const MODULE_FEDERATION_STORAGE_KEY = "rolldown-module-federation-enabled";
 
@@ -16,6 +22,7 @@ function App() {
   const [timeCost, setTimeCost] = useState(0);
   const [compiling, setCompiling] = useState(false);
   const [moduleFederationEnabled, setModuleFederationEnabled] = useState(false);
+  const [config, setConfig] = useState<RolldownConfig>(DEFAULT_CONFIG);
 
   // Load module federation setting from localStorage on mount
   useEffect(() => {
@@ -26,6 +33,19 @@ function App() {
       }
     } catch (error) {
       console.error("Failed to load module federation setting:", error);
+    }
+  }, []);
+
+  // Load configuration from localStorage on mount
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(CONFIG_STORAGE_KEY);
+      if (stored !== null) {
+        const parsedConfig = JSON.parse(stored);
+        setConfig({ ...DEFAULT_CONFIG, ...parsedConfig });
+      }
+    } catch (error) {
+      console.error("Failed to load configuration:", error);
     }
   }, []);
 
@@ -41,12 +61,25 @@ function App() {
     }
   }, [moduleFederationEnabled]);
 
+  // Save configuration to localStorage when it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem(CONFIG_STORAGE_KEY, JSON.stringify(config));
+    } catch (error) {
+      console.error("Failed to save configuration:", error);
+    }
+  }, [config]);
+
   const handleModuleFederationToggle = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setModuleFederationEnabled(event.target.checked);
     },
     []
   );
+
+  const handleConfigChange = useCallback((newConfig: RolldownConfig) => {
+    setConfig(newConfig);
+  }, []);
 
   const compile = useCallback(async () => {
     if (compiling || vfs.files.size === 0) return;
@@ -61,16 +94,11 @@ function App() {
     const t = performance.now();
     try {
       const build = await rolldown({
-        external: [
-          "react/jsx-runtime",
-          "react",
-          "react-dom",
-          "@webflow/react",
-          "@webflow/data-types",
-          "@module-federation/runtime",
-        ],
+        external: config.external,
         input: [vfs.entryPoint],
         cwd: "/",
+        platform: config.platform,
+        treeshake: config.treeshake,
         plugins: [
           {
             name: "vfs",
@@ -103,7 +131,12 @@ function App() {
         ],
       });
       const { output: chunks } = await build.generate({
-        dir: "dist",
+        dir: config.dir,
+        format: config.format,
+        sourcemap: config.sourcemap,
+        minify: config.minify,
+        entryFileNames: config.entryFileNames,
+        chunkFileNames: config.chunkFileNames,
       });
 
       setOutput(
@@ -121,7 +154,7 @@ function App() {
       setTimeCost(+(performance.now() - t).toFixed(2));
       setCompiling(false);
     }
-  }, [vfs, moduleFederationEnabled]);
+  }, [vfs, moduleFederationEnabled, config]);
 
   useEffect(() => {
     compile();
@@ -167,27 +200,30 @@ function App() {
         >
           Rolldown on Browser
         </h1>
-        <label
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            fontSize: "14px",
-            color: "#24292f",
-            cursor: "pointer",
-          }}
-        >
-          <input
-            type="checkbox"
-            checked={moduleFederationEnabled}
-            onChange={handleModuleFederationToggle}
+        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          <label
             style={{
-              margin: 0,
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              fontSize: "14px",
+              color: "#24292f",
               cursor: "pointer",
             }}
-          />
-          Module Federation
-        </label>
+          >
+            <input
+              type="checkbox"
+              checked={moduleFederationEnabled}
+              onChange={handleModuleFederationToggle}
+              style={{
+                margin: 0,
+                cursor: "pointer",
+              }}
+            />
+            Module Federation
+          </label>
+          <ConfigPanel config={config} onConfigChange={handleConfigChange} />
+        </div>
       </header>
 
       <div

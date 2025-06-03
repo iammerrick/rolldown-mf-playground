@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { rolldown } from "@rolldown/browser";
+import { moduleFederationPlugin } from "@rolldown/browser/experimental";
 import ansis from "ansis";
 
 function App() {
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState(() => {
+    return localStorage.getItem("code") || "";
+  });
   const [output, setOutput] = useState<string | undefined>();
   const [timeCost, setTimeCost] = useState(0);
   const [compiling, setCompiling] = useState(false);
@@ -13,12 +16,20 @@ function App() {
     setCompiling(true);
 
     const mainCode = code;
-    const vfs = new Map<string, string>([["/main.ts", mainCode]]);
+    const vfs = new Map<string, string>([["/main.tsx", mainCode]]);
 
     const t = performance.now();
     try {
       const build = await rolldown({
-        input: ["/main.ts"],
+        external: [
+          "react/jsx-runtime",
+          "react",
+          "react-dom",
+          "@webflow/react",
+          "@webflow/data-types",
+          "@module-federation/runtime",
+        ],
+        input: ["/main.tsx"],
         cwd: "/",
         plugins: [
           {
@@ -28,9 +39,23 @@ function App() {
               if (vfs.has(id)) {
                 return vfs.get(id)!;
               }
-              throw new Error(`File not found: ${JSON.stringify(id)}`);
+              console.log(`File not found: ${JSON.stringify(id)}`);
             },
           },
+          moduleFederationPlugin({
+            name: "mf-remote",
+            filename: "remote-entry.js",
+            exposes: {
+              "./main": "/main.tsx",
+            },
+            shared: {
+              react: {
+                singleton: true,
+              },
+            },
+            manifest: true,
+            getPublicPath: "http://localhost:8085/",
+          }),
         ],
       });
       const { output: chunks } = await build.generate({
@@ -61,6 +86,7 @@ function App() {
   }
 
   useEffect(() => {
+    localStorage.setItem("code", code);
     compile();
   }, [code]);
 

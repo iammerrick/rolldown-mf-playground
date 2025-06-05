@@ -1,17 +1,5 @@
-# Rolldown on Browser
+Primary work done here:
 
-A simple example of how to use Rolldown on a browser.
+https://github.com/sxzz/rolldown-browser
 
-Try it out [here](https://rolldown-browser.vercel.app/).
-
-## Sponsors
-
-<p align="center">
-  <a href="https://cdn.jsdelivr.net/gh/sxzz/sponsors/sponsors.svg">
-    <img src='https://cdn.jsdelivr.net/gh/sxzz/sponsors/sponsors.svg'/>
-  </a>
-</p>
-
-## License
-
-[MIT](./LICENSE) License © 2025 [三咲智子 Kevin Deng](https://github.com/sxzz)
+This PR adds module federation and a new UI.
